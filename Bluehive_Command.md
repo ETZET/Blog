@@ -36,7 +36,7 @@ source venv/bin/activate
 # change your directory to system ssh directory
 cd ~/.ssh
 # generate public key
-ssh-key-gen
+ssh-keygen
 ```
 You will receive prompt to enter name to the public key generated and enter a paraphase for the public key. For simplicity I recommend enter a meaningful key file name, and leave the paraphase blank.
 
@@ -72,3 +72,30 @@ Voila! Try ssh to your remote server with the nickname
 ``` bash
 ssh <nickname>
 ```
+
+#### *How to run jobs that will continue after SSH session shutdown*
+
+Lets say if you have a job that will run for three days. You run the job on the ssh session like you always did, and an hour later, your internet connection was cut off and the ssh tunnel dies. What happens? Your job dies with the ssh tunnel. Here is how to prevent this. 
+
+```bash
+nohup long-running-command >output.txt &
+```
+
+`nohup` tells the remote server not to kill your process when you exit the terminal/shell, that is when you cut off the SSH session.
+
+`>output.txt` redirect your program's output to a file named `output.txt`.
+
+`&` puts your job into background mode, so you may use the terminal window for other purposes.
+
+##Python Environment Related
+
+#### *Install Package by Pip when You Are not System Admin*
+
+```bash
+pip install --user ...
+```
+
+The package will be installed in your user directory rather than the system directory. This will solves the problem is you just need one or two package that is not preinstalled on the server. But what if you want to project that has a complicated package dependency or a version conflict with preinstalled packages? 
+
+#### *How to build python virtual environment*
+
