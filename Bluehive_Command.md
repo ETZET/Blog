@@ -72,6 +72,20 @@ Voila! Try ssh to your remote server with the nickname
 ssh <nickname>
 ```
 
+#### *How to copy file from/to a remote server to your local computer?*
+
+```bash
+scp {file} {server-user-id}@{server-address}:{path-on-server}
+# for example
+scp 1.txt enting@server.github.com:/u/enting/Documents
+# if you want to copy a folder then use -r option
+scp -r {folder} {server-user-id}@{server-address}:{path-on-server}
+# if you want to copy files from remote server to your local machine, simply switch position of arguments
+scp {server-user-id}@{server-address}:{file-path} {local-path}
+# if you configure the server nickname like described above, replace {user-id}@{server address} with the nickname, for example,
+scp {file} {nickname}:{path-on-server}
+```
+
 #### *How to run jobs that will continue after SSH session shutdown*
 
 Lets say if you have a job that will run for three days. You run the job on the ssh session like you always did, and an hour later, your internet connection was cut off and the ssh tunnel dies. What happens? Your job dies with the ssh tunnel. Here is how to prevent this. 
